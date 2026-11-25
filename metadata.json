@@ -1,0 +1,6 @@
+{
+  "name": "شركة المناهري للمقاولات العمومية",
+  "description": "شركة مقاولات عمومية تأسست عام 1998، تدير أعمال الخرسانات والحدادة والنجارة والتشطيبات من التخطيط حتى التسليم.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

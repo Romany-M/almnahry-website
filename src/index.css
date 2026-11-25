@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cairo", system-ui, -apple-system, sans-serif;
+  --font-sans: "IBM Plex Sans Arabic", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-basalt: #111315;
+  --color-basalt-elevated: #181B1F;
+  --color-limestone: #F5F4F0;
+  --color-limestone-subtle: #EAE8E1;
+  --color-brass: #B8863B;
+  --color-brass-light: #D4A459;
+  --color-brass-dark: #8E6322;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: #F5F4F0;
+    color: #141619;
+    scroll-behavior: auto;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  /* Custom subtle architectural scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #111315;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #353A40;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #B8863B;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.architectural-grid-dark {
+  background-image:
+    linear-gradient(to left, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+.architectural-grid-light {
+  background-image:
+    linear-gradient(to left, rgba(20, 22, 25, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 22, 25, 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
