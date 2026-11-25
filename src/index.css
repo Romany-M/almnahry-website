@@ -1,25 +1,39 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Cairo", system-ui, -apple-system, sans-serif;
-  --font-sans: "IBM Plex Sans Arabic", system-ui, -apple-system, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Cairo", system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+}
 
-  --color-basalt: #111315;
-  --color-basalt-elevated: #181B1F;
-  --color-limestone: #F5F4F0;
-  --color-limestone-subtle: #EAE8E1;
-  --color-brass: #B8863B;
-  --color-brass-light: #D4A459;
-  --color-brass-dark: #8E6322;
+:root {
+  /* Architectural & Construction Editorial Palette: Pure White + Deep Navy + Charcoal + Vibrant Cobalt Blue */
+  --arch-white: #ffffff;
+  --arch-alabaster: #f8fafc;
+  --arch-mist: #f1f5f9;
+  --arch-navy: #071121;
+  --arch-navy-elevated: #0d1b31;
+  --arch-charcoal: #111827;
+  --arch-slate: #475569;
+  --arch-muted: #64748b;
+
+  --arch-blue: #2563eb;
+  --arch-blue-hover: #1d4ed8;
+  --arch-blue-bright: #3b82f6;
+  --arch-blue-soft: #60a5fa;
+  --arch-blue-tint: #eff6ff;
 }
 
 @layer base {
   html {
     font-family: var(--font-sans);
-    background-color: #F5F4F0;
-    color: #141619;
+    background-color: var(--arch-white);
+    color: var(--arch-navy);
     scroll-behavior: auto;
+  }
+
+  body {
+    overflow-x: clip;
   }
 
   html.lenis,
@@ -47,21 +61,25 @@
     text-wrap: balance;
   }
 
-  /* Custom subtle architectural scrollbar */
+  p {
+    text-wrap: pretty;
+  }
+
   ::-webkit-scrollbar {
     width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #111315;
+    background: #071121;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #353A40;
+    background: #334155;
+    border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #B8863B;
+    background: #2563eb;
   }
 }
 
@@ -69,21 +87,64 @@
   font-variant-numeric: tabular-nums;
 }
 
-.architectural-grid-dark {
+/* Editorial Architectural Grid Lines */
+.arch-grid-light {
+  background-image:
+    linear-gradient(to left, rgba(11, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.arch-grid-dark {
   background-image:
     linear-gradient(to left, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-  background-size: 72px 72px;
+  background-size: 80px 80px;
 }
 
-.architectural-grid-light {
-  background-image:
-    linear-gradient(to left, rgba(20, 22, 25, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(20, 22, 25, 0.045) 1px, transparent 1px);
-  background-size: 72px 72px;
+/* Vibrant Cobalt Blue Primary Action */
+.btn-cobalt {
+  position: relative;
+  overflow: hidden;
+  background-color: #2563eb;
+  color: #ffffff;
+  transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-cobalt:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 14px 34px -10px rgba(37, 99, 235, 0.55);
+}
+
+.btn-cobalt:active {
+  transform: scale(0.97);
+}
+
+/* GPU-friendly subtle light drift for dark architectural chapters */
+@keyframes navyAuraDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-4%, 4%, 0) scale(1.07);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.animate-navy-aura {
+  animation: navyAuraDrift 20s ease-in-out infinite;
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .animate-navy-aura {
+    animation: none !important;
+  }
+
   *,
   *::before,
   *::after {

@@ -1,157 +1,9 @@
 import React, { useEffect } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { Check, X } from 'lucide-react';
-import { LEGAL_DOCS, type ProjectItem } from '../data/siteData';
-import { ARCHITECTURAL_EASE } from './MotionPrimitives';
-
-interface ProjectModalProps {
-  project: ProjectItem | null;
-  onClose: () => void;
-  onContactWithProject: () => void;
-}
-
-export const ProjectModal: React.FC<ProjectModalProps> = ({
-  project,
-  onClose,
-  onContactWithProject,
-}) => {
-  const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (!project) return;
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-  }, [project, onClose]);
-
-  return (
-    <AnimatePresence>
-      {project && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="project-modal-title"
-          className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6"
-          data-lenis-prevent
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-[#111315]/80 backdrop-blur-sm"
-          />
-
-          <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 24, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={shouldReduceMotion ? undefined : { opacity: 0, y: 16, scale: 0.98 }}
-            transition={{ duration: 0.35, ease: ARCHITECTURAL_EASE }}
-            className="relative z-10 w-full max-w-3xl max-h-[88vh] overflow-y-auto bg-[#F5F4F0] text-[#141619] border border-[#141619]/15 shadow-2xl"
-          >
-            {/* Header Image */}
-            <div className="relative h-56 sm:h-72 bg-[#111315]">
-              <img
-                src={project.image}
-                alt={project.imageAlt}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-[#111315]/85 via-[#111315]/25 to-transparent"
-              />
-              <button
-                type="button"
-                onClick={onClose}
-                aria-label="إغلاق النافذة"
-                className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-[#111315]/85 text-white hover:bg-[#C9974A] hover:text-[#111315] transition-colors focus-visible:outline-2 focus-visible:outline-white"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="absolute bottom-5 right-6 left-6 text-white">
-                <div className="flex flex-wrap items-center gap-2 text-xs text-[#D4A459] mb-1.5">
-                  <span>{project.status === 'completed' ? 'مشروع منفذ ومسلم' : 'قيد التنفيذ بالموقع'}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{project.location}</span>
-                  <span aria-hidden="true">·</span>
-                  <span className="font-mono tabular-nums">{project.year}</span>
-                </div>
-                <h3 id="project-modal-title" className="font-[Cairo] text-xl sm:text-2xl font-bold">
-                  {project.title}
-                </h3>
-              </div>
-            </div>
-
-            {/* Body */}
-            <div className="p-6 sm:p-8 space-y-6">
-              {/* Structured Specs Strip */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-6 border-b border-[#141619]/12 text-sm">
-                <div>
-                  <p className="text-xs text-[#5A5E66] mb-1">الجهة / القطاع</p>
-                  <p className="font-semibold text-[#141619]">{project.clientType}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-[#5A5E66] mb-1">المسطح الإجمالي</p>
-                  <p className="font-semibold text-[#141619] tabular-nums">{project.area}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-[#5A5E66] mb-1">
-                    {project.status === 'completed' ? 'حالة التسليم' : 'التسليم المتوقع'}
-                  </p>
-                  <p className="font-semibold text-[#141619]">
-                    {project.status === 'completed'
-                      ? 'تم التسليم بالكامل'
-                      : `${project.expectedHandover} (${project.progress}%)`}
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <h4 className="text-xs font-semibold text-[#8E6322]">نطاق العمل</h4>
-                <p className="text-sm sm:text-base font-medium text-[#141619]">{project.scope}</p>
-                <p className="text-sm leading-[1.85] text-[#4D5159] pt-1">{project.summary}</p>
-              </div>
-
-              <div className="space-y-3">
-                <h4 className="text-xs font-semibold text-[#8E6322]">أبرز بنود التنفيذ</h4>
-                <ul className="space-y-2.5">
-                  {project.highlights.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-[#2B2E33]">
-                      <Check className="w-4 h-4 text-[#8E6322] mt-1 shrink-0" aria-hidden="true" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="pt-5 border-t border-[#141619]/12 flex flex-wrap items-center justify-between gap-4">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-5 py-2.5 text-sm font-semibold border border-[#141619]/20 text-[#141619] hover:border-[#141619] transition-colors"
-                >
-                  إغلاق
-                </button>
-                <button
-                  type="button"
-                  onClick={onContactWithProject}
-                  className="px-6 py-2.5 text-sm font-bold bg-[#111315] text-white hover:bg-[#8E6322] transition-colors"
-                >
-                  تواصل معنا لمشروع مماثل
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
-  );
-};
+import { ArrowRight, X } from '@phosphor-icons/react';
+import { LEGAL_DOCS } from '../data/siteData';
+import { BrandLogoMark } from './BrandLogo';
+import { BASE_EASE } from './MotionPrimitives';
 
 interface LegalModalProps {
   docKey: 'privacy' | 'terms' | null;
@@ -179,65 +31,107 @@ export const LegalModal: React.FC<LegalModalProps> = ({ docKey, onClose }) => {
           role="dialog"
           aria-modal="true"
           aria-labelledby="legal-modal-title"
-          className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6"
           data-lenis-prevent
         >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.3, ease: BASE_EASE }}
             onClick={onClose}
-            className="absolute inset-0 bg-[#111315]/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-[#040A16]/85 backdrop-blur-md"
           />
 
           <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 20, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={shouldReduceMotion ? undefined : { opacity: 0, y: 12, scale: 0.98 }}
-            transition={{ duration: 0.3, ease: ARCHITECTURAL_EASE }}
-            className="relative z-10 w-full max-w-2xl max-h-[84vh] overflow-y-auto bg-[#F5F4F0] text-[#141619] border border-[#141619]/15 p-6 sm:p-8 shadow-2xl"
+            initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.98 }}
+            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.98 }}
+            transition={{ duration: 0.4, ease: BASE_EASE }}
+            className="relative z-10 w-full max-w-2xl max-h-[84vh] overflow-y-auto rounded-3xl p-6 sm:p-8 bg-[#0D1B31] text-white border border-white/14 shadow-2xl flex flex-col gap-6"
           >
-            <div className="flex items-start justify-between gap-4 pb-5 border-b border-[#141619]/12">
-              <div>
-                <h3 id="legal-modal-title" className="font-[Cairo] text-2xl font-bold text-[#141619]">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex flex-col gap-1">
+                <h3 id="legal-modal-title" className="font-[Cairo] text-2xl font-bold text-white">
                   {doc.title}
                 </h3>
-                <p className="text-xs text-[#5A5E66] mt-1">{doc.updated}</p>
+                <span className="text-xs text-[#94A3B8]">{doc.updated}</span>
               </div>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="إغلاق"
-                className="w-10 h-10 flex items-center justify-center border border-[#141619]/15 text-[#141619] hover:bg-[#111315] hover:text-white transition-colors"
+                className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/8 border border-white/12 text-white hover:bg-[#2563EB] hover:border-[#2563EB] active:scale-[0.96] transition-all shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5" weight="bold" />
               </button>
             </div>
 
-            <div className="py-6 space-y-6">
+            <div className="h-px w-full bg-white/10" aria-hidden="true" />
+
+            <div className="flex flex-col gap-6">
               {doc.sections.map((section) => (
-                <div key={section.heading} className="space-y-2">
-                  <h4 className="font-[Cairo] text-base font-bold text-[#141619]">
+                <div key={section.heading} className="flex flex-col gap-2">
+                  <h4 className="font-[Cairo] text-base font-bold text-[#60A5FA]">
                     {section.heading}
                   </h4>
-                  <p className="text-sm leading-[1.85] text-[#4D5159]">{section.body}</p>
+                  <p className="text-sm leading-[1.85] text-[#CBD5E1]">{section.body}</p>
                 </div>
               ))}
             </div>
 
-            <div className="pt-4 border-t border-[#141619]/12 flex justify-end">
+            <div className="h-px w-full bg-white/10" aria-hidden="true" />
+
+            <div className="flex justify-end">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-6 py-2.5 text-sm font-semibold bg-[#111315] text-white hover:bg-[#8E6322] transition-colors"
+                className="btn-cobalt px-5 py-2.5 rounded-xl text-sm font-bold text-white"
               >
-                فهمت
+                إغلاق
               </button>
             </div>
           </motion.div>
         </div>
       )}
     </AnimatePresence>
+  );
+};
+
+interface NotFoundViewProps {
+  onReturnHome: () => void;
+}
+
+export const NotFoundView: React.FC<NotFoundViewProps> = ({ onReturnHome }) => {
+  return (
+    <div className="min-h-screen bg-[#071121] text-white flex items-center justify-center p-6">
+      <div className="max-w-lg w-full rounded-3xl p-8 bg-[#0D1B31] border border-white/12 flex flex-col items-start gap-6 shadow-2xl">
+        <div className="flex items-center gap-3">
+          <BrandLogoMark className="w-8 h-8 text-white" accentColor="#3B82F6" />
+          <span className="font-[Cairo] text-base font-bold text-white">
+            المناهري للمقاولات العمومية
+          </span>
+        </div>
+
+        <div className="h-px w-full bg-white/10" aria-hidden="true" />
+
+        <div className="flex flex-col gap-3">
+          <span className="font-mono text-5xl font-bold text-[#60A5FA] tabular-nums">404</span>
+          <h1 className="font-[Cairo] text-2xl font-bold text-white">الصفحة المطلوبة غير موجودة</h1>
+          <p className="text-sm leading-relaxed text-[#CBD5E1]">
+            الرابط الذي تحاول الوصول إليه غير متاح حاليًا. يمكنك العودة إلى الصفحة الرئيسية لاستعراض خدمات ومشاريع المناهري.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={onReturnHome}
+          className="btn-cobalt inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2.5 rounded-xl text-sm font-bold text-white"
+        >
+          <ArrowRight className="w-4 h-4" weight="bold" aria-hidden="true" />
+          <span>العودة إلى الرئيسية</span>
+        </button>
+      </div>
+    </div>
   );
 };
