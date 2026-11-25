@@ -518,7 +518,7 @@ export const PartnersAndContact: React.FC<PartnersAndContactProps> = ({ inquiryP
                       </div>
 
                       {inquiryMode === 'quotation' && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div className="flex flex-col gap-5">
                           <div className="flex flex-col gap-2">
                             <label htmlFor="contact-scope" className="text-sm font-semibold text-white">
                               نطاق الأعمال المطلوب
@@ -540,21 +540,42 @@ export const PartnersAndContact: React.FC<PartnersAndContactProps> = ({ inquiryP
                             </select>
                           </div>
 
-                          <div className="flex flex-col gap-2">
-                            <label htmlFor="contact-location" className="text-sm font-semibold text-white">
-                              موقع المشروع ورقم الهاتف (اختياري)
-                            </label>
-                            <input
-                              id="contact-location"
-                              name="location"
-                              type="text"
-                              value={formData.location}
-                              onChange={(e) =>
-                                setFormData((prev) => ({ ...prev, location: e.target.value }))
-                              }
-                              placeholder="مثال: القاهرة الجديدة / رقم التواصل"
-                              className="w-full px-4 py-3.5 rounded-xl bg-white/[0.05] border border-white/14 text-sm text-white placeholder:text-[#94A3B8] transition-all duration-300 focus:outline-none focus:bg-white/[0.08] focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/60"
-                            />
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div className="flex flex-col gap-2">
+                              <label htmlFor="contact-location" className="text-sm font-semibold text-white">
+                                موقع المشروع (اختياري)
+                              </label>
+                              <input
+                                id="contact-location"
+                                name="location"
+                                type="text"
+                                value={formData.location}
+                                onChange={(e) =>
+                                  setFormData((prev) => ({ ...prev, location: e.target.value }))
+                                }
+                                placeholder="مثال: القاهرة الجديدة / 6 أكتوبر"
+                                className="w-full px-4 py-3.5 rounded-xl bg-white/[0.05] border border-white/14 text-sm text-white placeholder:text-[#94A3B8] transition-all duration-300 focus:outline-none focus:bg-white/[0.08] focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/60"
+                              />
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                              <label htmlFor="contact-phone" className="text-sm font-semibold text-white">
+                                رقم الهاتف (اختياري)
+                              </label>
+                              <input
+                                id="contact-phone"
+                                name="phone"
+                                type="tel"
+                                dir="ltr"
+                                autoComplete="tel"
+                                value={formData.phone}
+                                onChange={(e) =>
+                                  setFormData((prev) => ({ ...prev, phone: e.target.value }))
+                                }
+                                placeholder="+20 100 000 0000"
+                                className="w-full px-4 py-3.5 rounded-xl bg-white/[0.05] border border-white/14 text-sm text-white placeholder:text-[#94A3B8] text-left transition-all duration-300 focus:outline-none focus:bg-white/[0.08] focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/60"
+                              />
+                            </div>
                           </div>
                         </div>
                       )}

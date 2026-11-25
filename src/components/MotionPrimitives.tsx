@@ -95,17 +95,19 @@ interface CinematicImageRevealProps {
   fallbackTitle: string;
   direction?: 'up' | 'right' | 'left';
   delay?: number;
+  immediate?: boolean;
   className?: string;
   imgClassName?: string;
 }
 
-/* Architectural Curtain + Subtle Scale Reveal for Editorial Project Photography */
+/* Architectural Curtain + Decoupled Entrance Scale so CSS group-hover zoom never collides with Motion inline transform */
 export const CinematicImageReveal: React.FC<CinematicImageRevealProps> = ({
   src,
   alt,
   fallbackTitle,
   direction = 'up',
   delay = 0,
+  immediate = false,
   className = '',
   imgClassName = '',
 }) => {
@@ -119,14 +121,19 @@ export const CinematicImageReveal: React.FC<CinematicImageRevealProps> = ({
         ? 'inset(0% 100% 0% 0%)'
         : 'inset(100% 0% 0% 0%)';
 
+  const revealTarget = shouldReduceMotion
+    ? { opacity: 1 }
+    : { clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 };
+
+  const scaleTarget = shouldReduceMotion ? undefined : { scale: 1 };
+
   return (
     <motion.div
       initial={shouldReduceMotion ? { opacity: 0 } : { clipPath: initialClip, opacity: 0.6 }}
-      whileInView={
-        shouldReduceMotion ? { opacity: 1 } : { clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }
-      }
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.9, delay, ease: BASE_EASE }}
+      animate={immediate ? revealTarget : undefined}
+      whileInView={immediate ? undefined : revealTarget}
+      viewport={immediate ? undefined : { once: true, amount: 0.12 }}
+      transition={{ duration: immediate ? 0.65 : 0.88, delay, ease: BASE_EASE }}
       className={`relative overflow-hidden bg-[#0D1B31] ${className}`}
     >
       {hasError ? (
@@ -135,18 +142,24 @@ export const CinematicImageReveal: React.FC<CinematicImageRevealProps> = ({
           <span className="text-sm font-medium">{fallbackTitle}</span>
         </div>
       ) : (
-        <motion.img
-          src={src}
-          alt={alt}
-          referrerPolicy="no-referrer"
-          loading="lazy"
-          onError={() => setHasError(true)}
-          initial={shouldReduceMotion ? false : { scale: 1.12 }}
-          whileInView={shouldReduceMotion ? undefined : { scale: 1 }}
-          viewport={{ once: true, amount: 0.18 }}
-          transition={{ duration: 1.05, delay, ease: BASE_EASE }}
-          className={`w-full h-full object-cover will-change-transform ${imgClassName}`}
-        />
+        <motion.div
+          initial={shouldReduceMotion ? false : { scale: 1.1 }}
+          animate={immediate ? scaleTarget : undefined}
+          whileInView={immediate ? undefined : scaleTarget}
+          viewport={immediate ? undefined : { once: true, amount: 0.12 }}
+          transition={{ duration: immediate ? 0.75 : 1.02, delay, ease: BASE_EASE }}
+          className="w-full h-full will-change-transform"
+        >
+          <img
+            src={src}
+            alt={alt}
+            referrerPolicy="no-referrer"
+            loading="lazy"
+            decoding="async"
+            onError={() => setHasError(true)}
+            className={`w-full h-full object-cover will-change-transform ${imgClassName}`}
+          />
+        </motion.div>
       )}
     </motion.div>
   );
@@ -254,6 +267,7 @@ export const ParallaxImage: React.FC<ParallaxImageProps> = ({
           alt={alt}
           referrerPolicy="no-referrer"
           loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
           onError={() => setHasError(true)}
           style={{ y, scale: shouldReduceMotion ? 1 : 1.1 }}
           className={`w-full h-full object-cover will-change-transform ${imgClassName}`}

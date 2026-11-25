@@ -3,13 +3,15 @@ import React from 'react';
 interface BrandLogoMarkProps {
   className?: string;
   accentColor?: string;
+  goldColor?: string;
   strokeColor?: string;
   ariaLabel?: string;
 }
 
 export const BrandLogoMark: React.FC<BrandLogoMarkProps> = ({
   className = 'w-8 h-8',
-  accentColor = '#2563EB',
+  accentColor = '#2878D0',
+  goldColor = '#E5A52B',
   strokeColor = 'currentColor',
   ariaLabel = 'شعار شركة المناهري للمقاولات العمومية',
 }) => {
@@ -39,7 +41,7 @@ export const BrandLogoMark: React.FC<BrandLogoMarkProps> = ({
         strokeLinejoin="miter"
       />
       <path d="M20 20.5V31" stroke={accentColor} strokeWidth="2.4" strokeLinecap="square" />
-      <path d="M8 7.5H32" stroke={accentColor} strokeWidth="1.8" strokeLinecap="square" />
+      <path d="M8 7.5H32" stroke={goldColor} strokeWidth="1.8" strokeLinecap="square" />
     </svg>
   );
 };

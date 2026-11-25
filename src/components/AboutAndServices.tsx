@@ -116,10 +116,17 @@ export const AboutSection: React.FC = () => {
 
 interface ServicesSectionProps {
   onNavigate: (target: string) => void;
+  onRequestQuoteForService: (serviceId: string) => void;
+  activeServiceId: string;
+  onSelectService: (serviceId: string) => void;
 }
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigate }) => {
-  const [activeServiceId, setActiveServiceId] = useState<string>(SERVICES[0].id);
+export const ServicesSection: React.FC<ServicesSectionProps> = ({
+  onNavigate,
+  onRequestQuoteForService,
+  activeServiceId,
+  onSelectService,
+}) => {
   const [imgErrorIds, setImgErrorIds] = useState<Record<string, boolean>>({});
   const shouldReduceMotion = useReducedMotion();
 
@@ -177,7 +184,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigate }) 
                   role="tab"
                   aria-selected={isSelected}
                   aria-controls={`service-panel-${service.id}`}
-                  onClick={() => setActiveServiceId(service.id)}
+                  onClick={() => onSelectService(service.id)}
                   className={`group text-right p-5 sm:p-6 rounded-2xl border transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
                     isSelected
                       ? 'bg-[#071121] border-[#071121] text-white shadow-[0_22px_50px_-20px_rgba(7,17,33,0.45)]'
@@ -241,14 +248,17 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigate }) 
                         <span className="text-sm">{activeService.title}</span>
                       </div>
                     ) : (
-                      <img
+                      <motion.img
                         src={activeService.image}
                         alt={activeService.imageAlt}
                         referrerPolicy="no-referrer"
+                        initial={shouldReduceMotion ? false : { scale: 1.06 }}
+                        animate={shouldReduceMotion ? undefined : { scale: 1 }}
+                        transition={{ duration: 0.7, ease: BASE_EASE }}
                         onError={() =>
                           setImgErrorIds((prev) => ({ ...prev, [activeService.id]: true }))
                         }
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover will-change-transform"
                       />
                     )}
                     <div
@@ -285,17 +295,26 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onNavigate }) 
 
                 <div className="pt-4 border-t border-[#071121]/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <span className="text-xs sm:text-sm text-[#64748B]">{activeService.standard}</span>
-                  <a
-                    href="#completed"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      onNavigate('#completed');
-                    }}
-                    className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2563EB] hover:text-[#071121] transition-colors whitespace-nowrap shrink-0"
-                  >
-                    <span>عرض نماذج التنفيذ</span>
-                    <ArrowLeft className="w-4 h-4" weight="bold" aria-hidden="true" />
-                  </a>
+                  <div className="flex flex-wrap items-center gap-4 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => onRequestQuoteForService(activeService.id)}
+                      className="inline-flex items-center gap-1.5 text-sm font-bold text-[#071121] hover:text-[#2563EB] transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-md px-1"
+                    >
+                      <span>اطلب مقايسة لهذا البند</span>
+                    </button>
+                    <a
+                      href="#completed"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onNavigate('#completed');
+                      }}
+                      className="inline-flex items-center gap-1.5 text-sm font-bold text-[#2563EB] hover:text-[#071121] transition-colors whitespace-nowrap"
+                    >
+                      <span>عرض نماذج التنفيذ</span>
+                      <ArrowLeft className="w-4 h-4" weight="bold" aria-hidden="true" />
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             </AnimatePresence>

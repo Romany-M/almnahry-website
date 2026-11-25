@@ -7,33 +7,35 @@
 }
 
 :root {
-  /* Architectural & Construction Editorial Palette: Pure White + Deep Navy + Charcoal + Vibrant Cobalt Blue */
+  /* AL MNAHRY International Engineering & Construction Palette */
+  --arch-navy: #101c2c;
+  --arch-navy-deep: #0b1420;
+  --arch-eng-blue: #1e3a5f;
+  --arch-blue: #2878d0;
+  --arch-blue-hover: #1f63b0;
+  --arch-blue-soft: #5ea0ea;
   --arch-white: #ffffff;
-  --arch-alabaster: #f8fafc;
-  --arch-mist: #f1f5f9;
-  --arch-navy: #071121;
-  --arch-navy-elevated: #0d1b31;
-  --arch-charcoal: #111827;
-  --arch-slate: #475569;
-  --arch-muted: #64748b;
-
-  --arch-blue: #2563eb;
-  --arch-blue-hover: #1d4ed8;
-  --arch-blue-bright: #3b82f6;
-  --arch-blue-soft: #60a5fa;
-  --arch-blue-tint: #eff6ff;
+  --arch-premium-white: #f5f6f7;
+  --arch-steel: #b8c5d1;
+  --arch-slate: #4a5b6e;
+  --arch-gold: #e5a52b;
 }
 
 @layer base {
   html {
     font-family: var(--font-sans);
-    background-color: var(--arch-white);
+    background-color: var(--arch-premium-white);
     color: var(--arch-navy);
     scroll-behavior: auto;
   }
 
   body {
     overflow-x: clip;
+  }
+
+  section[id],
+  div[id='team'] {
+    scroll-margin-top: 80px;
   }
 
   html.lenis,
@@ -70,16 +72,16 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #071121;
+    background: #101c2c;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #334155;
+    background: #1e3a5f;
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #2563eb;
+    background: #2878d0;
   }
 }
 
@@ -90,36 +92,41 @@
 /* Editorial Architectural Grid Lines */
 .arch-grid-light {
   background-image:
-    linear-gradient(to left, rgba(11, 23, 42, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(11, 23, 42, 0.04) 1px, transparent 1px);
+    linear-gradient(to left, rgba(16, 28, 44, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 28, 44, 0.045) 1px, transparent 1px);
   background-size: 80px 80px;
 }
 
 .arch-grid-dark {
   background-image:
-    linear-gradient(to left, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    linear-gradient(to left, rgba(184, 197, 209, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(184, 197, 209, 0.06) 1px, transparent 1px);
   background-size: 80px 80px;
 }
 
-/* Vibrant Cobalt Blue Primary Action */
+/* Electric Blue Primary Action */
 .btn-cobalt {
   position: relative;
   overflow: hidden;
-  background-color: #2563eb;
+  background-color: #2878d0;
   color: #ffffff;
-  transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background-color 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .btn-cobalt:hover {
-  background-color: #1d4ed8;
-  box-shadow: 0 14px 34px -10px rgba(37, 99, 235, 0.55);
+  background-color: #1f63b0;
+  box-shadow: 0 14px 34px -10px rgba(40, 120, 208, 0.55);
 }
 
 .btn-cobalt:active {
   transform: scale(0.97);
+}
+
+/* Subtle Gold Hairline Accent Rule */
+.arch-gold-rule {
+  background: linear-gradient(to left, #e5a52b, rgba(229, 165, 43, 0.12), transparent);
 }
 
 /* GPU-friendly subtle light drift for dark architectural chapters */
@@ -128,7 +135,7 @@
     transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate3d(-4%, 4%, 0) scale(1.07);
+    transform: translate3d(-4%, 4%, 0) scale(1.06);
   }
   100% {
     transform: translate3d(0, 0, 0) scale(1);

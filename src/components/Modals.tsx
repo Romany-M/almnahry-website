@@ -40,7 +40,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ docKey, onClose }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: BASE_EASE }}
             onClick={onClose}
-            className="absolute inset-0 bg-[#040A16]/85 backdrop-blur-md"
+            className="absolute inset-0 bg-[#0B1420]/85 backdrop-blur-md"
           />
 
           <motion.div
@@ -48,20 +48,20 @@ export const LegalModal: React.FC<LegalModalProps> = ({ docKey, onClose }) => {
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.4, ease: BASE_EASE }}
-            className="relative z-10 w-full max-w-2xl max-h-[84vh] overflow-y-auto rounded-3xl p-6 sm:p-8 bg-[#0D1B31] text-white border border-white/14 shadow-2xl flex flex-col gap-6"
+            className="relative z-10 w-full max-w-2xl max-h-[84vh] overflow-y-auto rounded-3xl p-6 sm:p-8 bg-[#101C2C] text-white border border-white/14 shadow-2xl flex flex-col gap-6"
           >
             <div className="flex items-start justify-between gap-4">
               <div className="flex flex-col gap-1">
                 <h3 id="legal-modal-title" className="font-[Cairo] text-2xl font-bold text-white">
                   {doc.title}
                 </h3>
-                <span className="text-xs text-[#94A3B8]">{doc.updated}</span>
+                <span className="text-xs text-[#B8C5D1]">{doc.updated}</span>
               </div>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="إغلاق"
-                className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/8 border border-white/12 text-white hover:bg-[#2563EB] hover:border-[#2563EB] active:scale-[0.96] transition-all shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6]"
+                className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/8 border border-white/12 text-white hover:bg-[#2878D0] hover:border-[#2878D0] active:scale-[0.96] transition-all shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2878D0]"
               >
                 <X className="w-5 h-5" weight="bold" />
               </button>
@@ -72,10 +72,10 @@ export const LegalModal: React.FC<LegalModalProps> = ({ docKey, onClose }) => {
             <div className="flex flex-col gap-6">
               {doc.sections.map((section) => (
                 <div key={section.heading} className="flex flex-col gap-2">
-                  <h4 className="font-[Cairo] text-base font-bold text-[#60A5FA]">
+                  <h4 className="font-[Cairo] text-base font-bold text-[#E5A52B]">
                     {section.heading}
                   </h4>
-                  <p className="text-sm leading-[1.85] text-[#CBD5E1]">{section.body}</p>
+                  <p className="text-sm leading-[1.85] text-[#B8C5D1]">{section.body}</p>
                 </div>
               ))}
             </div>
@@ -104,10 +104,14 @@ interface NotFoundViewProps {
 
 export const NotFoundView: React.FC<NotFoundViewProps> = ({ onReturnHome }) => {
   return (
-    <div className="min-h-screen bg-[#071121] text-white flex items-center justify-center p-6">
-      <div className="max-w-lg w-full rounded-3xl p-8 bg-[#0D1B31] border border-white/12 flex flex-col items-start gap-6 shadow-2xl">
+    <div className="min-h-screen bg-[#101C2C] text-white flex items-center justify-center p-6">
+      <div className="max-w-lg w-full rounded-3xl p-8 bg-[#1E3A5F]/42 border border-white/12 flex flex-col items-start gap-6 shadow-2xl">
         <div className="flex items-center gap-3">
-          <BrandLogoMark className="w-8 h-8 text-white" accentColor="#3B82F6" />
+          <BrandLogoMark
+            className="w-8 h-8 text-white"
+            accentColor="#2878D0"
+            goldColor="#E5A52B"
+          />
           <span className="font-[Cairo] text-base font-bold text-white">
             المناهري للمقاولات العمومية
           </span>
@@ -116,9 +120,9 @@ export const NotFoundView: React.FC<NotFoundViewProps> = ({ onReturnHome }) => {
         <div className="h-px w-full bg-white/10" aria-hidden="true" />
 
         <div className="flex flex-col gap-3">
-          <span className="font-mono text-5xl font-bold text-[#60A5FA] tabular-nums">404</span>
+          <span className="font-mono text-5xl font-bold text-[#E5A52B] tabular-nums">404</span>
           <h1 className="font-[Cairo] text-2xl font-bold text-white">الصفحة المطلوبة غير موجودة</h1>
-          <p className="text-sm leading-relaxed text-[#CBD5E1]">
+          <p className="text-sm leading-relaxed text-[#B8C5D1]">
             الرابط الذي تحاول الوصول إليه غير متاح حاليًا. يمكنك العودة إلى الصفحة الرئيسية لاستعراض خدمات ومشاريع المناهري.
           </p>
         </div>

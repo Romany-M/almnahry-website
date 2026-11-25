@@ -155,6 +155,7 @@ export const ProjectsSections: React.FC<ProjectsSectionsProps> = ({
                               alt={project.imageAlt}
                               fallbackTitle={project.title}
                               direction={isReversedSpread ? 'left' : 'right'}
+                              immediate={selectedCategory !== 'all'}
                               className="w-full h-full"
                               imgClassName="transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
                             />
@@ -266,6 +267,7 @@ export const ProjectsSections: React.FC<ProjectsSectionsProps> = ({
                             alt={project.imageAlt}
                             fallbackTitle={project.title}
                             direction={revealDirection}
+                            immediate={selectedCategory !== 'all'}
                             className="w-full h-full"
                             imgClassName="transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-106"
                           />
@@ -314,14 +316,17 @@ export const ProjectsSections: React.FC<ProjectsSectionsProps> = ({
                             </p>
                           </div>
 
-                          <div className="pt-4 border-t border-[#071121]/10 flex items-center justify-between gap-4 text-xs sm:text-sm">
+                          <div className="pt-4 border-t border-[#071121]/10 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
                             <span className="text-[#64748B] truncate">
                               المسطح{' '}
                               <strong className="font-mono text-[#071121] tabular-nums">
                                 {project.area}
                               </strong>
                             </span>
-                            <span className="text-[#475569] font-medium shrink-0">
+                            <span className="text-[#475569] font-medium truncate">
+                              {project.structuralSpec}
+                            </span>
+                            <span className="text-[#64748B] shrink-0">
                               {project.duration}
                             </span>
                           </div>

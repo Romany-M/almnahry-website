@@ -70,7 +70,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
   useEffect(() => {
     if (shouldReduceMotion || !visible) return;
 
-    const minDuration = 2150;
+    const minDuration = 1650;
     const startTime = performance.now();
     let rafId = 0;
     let exitTimer = 0;
@@ -90,7 +90,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         exitTimer = window.setTimeout(() => {
           setVisible(false);
           onComplete();
-        }, 260);
+        }, 220);
       }
     };
 
@@ -101,6 +101,18 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
       window.clearTimeout(exitTimer);
     };
   }, [assetsReady, visible, shouldReduceMotion, onComplete]);
+
+  useEffect(() => {
+    if (!visible) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setVisible(false);
+        onComplete();
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [visible, onComplete]);
 
   const handleSkip = () => {
     setVisible(false);

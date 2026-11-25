@@ -40,6 +40,16 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
 
   const isOpen = initialIndex !== null && images.length > 0;
 
+  // Lock background page scroll while Lightbox is active
+  useEffect(() => {
+    if (!isOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isOpen]);
+
   const goNext = useCallback(() => {
     setIsZoomed(false);
     setDirection(1);
@@ -63,6 +73,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
+        e.stopPropagation();
         onClose();
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
@@ -75,8 +86,8 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
         setIsZoomed((prev) => !prev);
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown, true);
+    return () => window.removeEventListener('keydown', handleKeyDown, true);
   }, [isOpen, goNext, goPrev, onClose]);
 
   const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
@@ -144,7 +155,7 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
             </div>
           </div>
 
-          {/* Main Interactive Image Stage */}
+          {/* Main Interactive Image Stage (Supports Swipe when unzoomed & Pan when zoomed) */}
           <div className="relative flex-1 flex items-center justify-center overflow-hidden px-4 sm:px-20 py-4">
             {images.length > 1 && (
               <button
@@ -170,35 +181,43 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
 
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
-                key={currentIndex}
+                key={`${currentIndex}-${isZoomed ? 'zoom' : 'fit'}`}
                 custom={direction}
                 initial={
                   shouldReduceMotion
                     ? { opacity: 0 }
-                    : { opacity: 0, x: direction >= 0 ? -48 : 48, scale: 0.97 }
+                    : { opacity: 0, x: direction >= 0 ? -42 : 42, scale: 0.98 }
                 }
                 animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0, scale: 1 }}
                 exit={
                   shouldReduceMotion
                     ? { opacity: 0 }
-                    : { opacity: 0, x: direction >= 0 ? 48 : -48, scale: 0.97 }
+                    : { opacity: 0, x: direction >= 0 ? 42 : -42, scale: 0.98 }
                 }
-                transition={{ duration: 0.42, ease: BASE_EASE }}
-                drag={!isZoomed && images.length > 1 ? 'x' : false}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.22}
+                transition={{ duration: 0.38, ease: BASE_EASE }}
+                drag={isZoomed ? true : images.length > 1 ? 'x' : false}
+                dragConstraints={
+                  isZoomed ? { left: -240, right: 240, top: -180, bottom: 180 } : { left: 0, right: 0 }
+                }
+                dragElastic={isZoomed ? 0.12 : 0.22}
                 onDragEnd={handleDragEnd}
-                className="relative max-w-6xl max-h-full w-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+                className={`relative max-w-6xl max-h-full w-full flex items-center justify-center ${
+                  isZoomed ? 'cursor-grab active:cursor-grabbing' : 'cursor-grab active:cursor-grabbing'
+                }`}
               >
                 <motion.img
                   src={activeImage.src}
                   alt={activeImage.alt}
                   referrerPolicy="no-referrer"
-                  onClick={() => setIsZoomed((prev) => !prev)}
-                  animate={{ scale: isZoomed ? 1.55 : 1 }}
-                  transition={{ duration: 0.42, ease: BASE_EASE }}
+                  draggable={false}
+                  onDoubleClick={() => setIsZoomed((prev) => !prev)}
+                  onClick={() => {
+                    if (!isZoomed) setIsZoomed(true);
+                  }}
+                  animate={{ scale: isZoomed ? 1.65 : 1 }}
+                  transition={{ duration: 0.4, ease: BASE_EASE }}
                   className={`max-h-[66vh] sm:max-h-[70vh] w-auto max-w-full object-contain rounded-2xl border border-white/12 shadow-[0_32px_90px_-15px_rgba(0,0,0,0.9)] ${
-                    isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'
+                    isZoomed ? 'cursor-move' : 'cursor-zoom-in'
                   }`}
                 />
               </motion.div>
@@ -209,6 +228,10 @@ export const ProjectLightbox: React.FC<ProjectLightboxProps> = ({
           <div className="px-4 sm:px-8 py-4 border-t border-white/10 bg-[#050B16]/95 flex flex-col gap-4">
             <div className="max-w-5xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <p className="text-sm text-[#CBD5E1] leading-relaxed">{activeImage.caption}</p>
+
+              <span className="hidden sm:inline-block text-xs text-[#94A3B8] whitespace-nowrap shrink-0">
+                {isZoomed ? 'اسحب لاستكشاف التفاصيل أو انقر مرتين للتصغير' : 'اضغط للتكبير أو استخدم الأسهم للتنقل'}
+              </span>
 
               {images.length > 1 && (
                 <div className="flex sm:hidden items-center justify-between gap-3">

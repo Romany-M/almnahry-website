@@ -90,6 +90,7 @@ export const SITE_IMAGES = {
   atriumCraft: '/src/assets/images/gallery_atrium_craft_1795610994511.jpg',
   engineeringBlueprints: '/src/assets/images/site_blueprints_engineering_1795612837035.jpg',
   safetySurvey: '/src/assets/images/site_safety_precision_survey_1795612836671.jpg',
+  siteLeadership: '/src/assets/images/human_engineers_site_leadership_1795614160713.jpg',
 } as const;
 
 export const NAV_ITEMS: NavItem[] = [

@@ -7,7 +7,7 @@ export const TaglineRevealSection: React.FC = () => {
     <section
       id="manifesto"
       aria-label="التزام شركة المناهري"
-      className="relative bg-[#071121] text-white py-24 sm:py-32 overflow-hidden"
+      className="relative bg-[#101C2C] text-white py-24 sm:py-32 overflow-hidden"
     >
       <DarkChapterAtmosphere variant="navy" />
       <div aria-hidden="true" className="absolute inset-0 arch-grid-dark pointer-events-none" />
@@ -15,22 +15,23 @@ export const TaglineRevealSection: React.FC = () => {
       <div className="relative z-10 max-w-[1360px] mx-auto px-5 sm:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           <RevealBlock className="lg:col-span-4 flex flex-col gap-5">
-            <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-[#0D1B31] border border-white/15 shrink-0">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-[#1E3A5F]/65 border border-white/15 shrink-0">
               <BrandLogoMark
                 className="w-8 h-8 text-white"
-                accentColor="#3B82F6"
+                accentColor="#2878D0"
+                goldColor="#E5A52B"
                 ariaLabel="شعار شركة المناهري للمقاولات العمومية"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-xs font-medium text-[#60A5FA]">
+              <span className="text-xs font-medium text-[#E5A52B]">
                 شعار شركة المناهري للمقاولات العمومية
               </span>
               <span className="font-[Cairo] text-lg font-bold text-white">
                 شركة المناهري للمقاولات العمومية
               </span>
             </div>
-            <div className="h-px w-24 bg-[#2563EB]" aria-hidden="true" />
+            <div className="h-[2px] w-24 arch-gold-rule" aria-hidden="true" />
           </RevealBlock>
 
           <div className="lg:col-span-8">

@@ -34,11 +34,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       ref={heroRef}
       className="relative min-h-[94vh] flex flex-col justify-end bg-[#071121] text-white overflow-hidden"
     >
-      {/* Full-Width Architectural Background Photograph with Cinematic Entrance & Scroll Parallax */}
+      {/* Full-Width Architectural Background Photograph with High-Priority LCP & Scroll Parallax */}
       <motion.div
         style={{ y: bgY }}
-        initial={shouldReduceMotion ? false : { scale: 1.1, opacity: 0.7 }}
-        animate={ready ? { scale: 1.02, opacity: 1 } : { scale: 1.1, opacity: 0.7 }}
+        initial={shouldReduceMotion ? false : { scale: 1.09, opacity: 0.72 }}
+        animate={ready ? { scale: 1.02, opacity: 1 } : { scale: 1.09, opacity: 0.72 }}
         transition={{ duration: 1.35, ease: BASE_EASE }}
         className="absolute inset-0 will-change-transform"
       >
@@ -46,6 +46,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           src={SITE_IMAGES.hero}
           alt="مبنى خرساني ومعماري حديث نفذ بانضباط هندسي تحت إضاءة طبيعية دافئة"
           referrerPolicy="no-referrer"
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-full object-cover object-center"
         />
       </motion.div>
@@ -68,7 +70,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       {/* Oversized Editorial Hero Composition */}
       <motion.div
         style={{ y: contentY }}
-        className="relative z-10 max-w-[1360px] w-full mx-auto px-5 sm:px-10 pt-36 pb-12 sm:pb-16 flex flex-col gap-10 sm:gap-14"
+        className="relative z-10 max-w-[1360px] w-full mx-auto px-5 sm:px-10 pt-32 sm:pt-36 pb-12 sm:pb-16 flex flex-col gap-9 sm:gap-14"
       >
         {/* Top Row: Heritage & Architectural Coordinates */}
         <motion.div
@@ -92,7 +94,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
         {/* Oversized Masked Architectural Display Headline */}
         <div className="max-w-5xl">
-          <h1 className="font-[Cairo] text-4xl sm:text-6xl lg:text-[4.5rem] font-extrabold leading-[1.12] tracking-tight text-white">
+          <h1 className="font-[Cairo] text-[2.25rem] sm:text-6xl lg:text-[4.5rem] font-extrabold leading-[1.15] sm:leading-[1.12] tracking-tight text-white">
             <span className="block overflow-hidden pb-1">
               <motion.span
                 initial={shouldReduceMotion ? false : { y: '108%', opacity: 0, filter: 'blur(6px)' }}
@@ -129,13 +131,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
           animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.8, delay: 0.38, ease: BASE_EASE }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-4 border-t border-white/15"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-5 border-t border-white/15"
         >
           <p className="lg:col-span-6 text-base sm:text-lg leading-[1.85] text-[#E2E8F0] max-w-[54ch]">
             شركة مقاولات عمومية تدير أعمالها من التخطيط حتى التسليم، وتعرض لك هنا ما أنجزته وما تعمل عليه الآن.
           </p>
 
-          <div className="lg:col-span-6 flex flex-wrap items-center lg:justify-end gap-4">
+          <div className="lg:col-span-6 flex flex-wrap items-center lg:justify-end gap-3.5 sm:gap-4">
             <a
               href="#completed"
               onClick={(e) => {
