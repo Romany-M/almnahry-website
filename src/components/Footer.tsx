@@ -141,10 +141,9 @@ export const Footer: React.FC<FooterProps> = ({
                 }}
                 className="inline-flex items-center gap-3.5 w-fit group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3B82F6] rounded-xl"
               >
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-[#0D1B31] border border-[#3B82F6]/35 group-hover:border-[#60A5FA] transition-colors shrink-0">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white/95 border border-white/25 group-hover:border-[#60A5FA] p-1.5 shadow-[0_8px_22px_-10px_rgba(0,0,0,0.5)] transition-colors shrink-0">
                   <BrandLogoMark
-                    className="w-7 h-7 text-white"
-                    accentColor="#3B82F6"
+                    className="w-full h-full"
                     ariaLabel="شعار شركة المناهري للمقاولات العمومية"
                   />
                 </div>

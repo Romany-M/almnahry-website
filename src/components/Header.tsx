@@ -104,14 +104,21 @@ export const Header: React.FC<HeaderProps> = ({
               isLight ? 'text-[#071121]' : 'text-white'
             }`}
           >
-            <BrandLogoMark
-              className={`shrink-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                isScrolled ? 'w-7 h-7' : 'w-8 h-8 sm:w-9 sm:h-9'
+            <span
+              className={`inline-flex items-center justify-center rounded-lg shrink-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                isLight
+                  ? 'bg-transparent p-0'
+                  : 'bg-white/95 p-1 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35)]'
               }`}
-              accentColor={isLight ? '#2563EB' : '#3B82F6'}
-              strokeColor="currentColor"
-              ariaLabel="شعار المناهري"
-            />
+            >
+              <BrandLogoMark
+                priority
+                className={`shrink-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  isScrolled ? 'h-7 w-auto' : 'h-8 sm:h-9 w-auto'
+                }`}
+                ariaLabel="شعار المناهري"
+              />
+            </span>
             <span
               className={`font-[Cairo] font-bold tracking-tight transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 isScrolled ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'

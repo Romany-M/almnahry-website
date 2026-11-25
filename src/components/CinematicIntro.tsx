@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { SITE_IMAGES } from '../data/siteData';
+import { BrandLogoMark } from './BrandLogo';
 import { BASE_EASE } from './MotionPrimitives';
 
 interface CinematicIntroProps {
@@ -184,56 +185,13 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
               initial={{ scale: 0.86, opacity: 0, filter: 'blur(8px)' }}
               animate={{ scale: 1, opacity: 1, filter: 'blur(0px)' }}
               transition={{ duration: 0.85, ease: BASE_EASE }}
-              className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center"
+              className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-white/95 border border-white/30 shadow-[0_24px_60px_-14px_rgba(37,99,235,0.45)] p-3.5 sm:p-4 flex items-center justify-center"
             >
-              <svg
-                viewBox="0 0 64 64"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+              <BrandLogoMark
+                priority
                 className="w-full h-full"
-                aria-hidden="true"
-              >
-                <motion.rect
-                  x="4"
-                  y="4"
-                  width="56"
-                  height="56"
-                  rx="8"
-                  stroke="rgba(255,255,255,0.22)"
-                  strokeWidth="1.5"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.95, ease: BASE_EASE }}
-                />
-                <motion.path
-                  d="M15 48V18L32 33L49 18V48"
-                  stroke="#FFFFFF"
-                  strokeWidth="3.2"
-                  strokeLinecap="square"
-                  strokeLinejoin="miter"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.9, delay: 0.2, ease: BASE_EASE }}
-                />
-                <motion.path
-                  d="M32 33V48"
-                  stroke="#3B82F6"
-                  strokeWidth="3.2"
-                  strokeLinecap="square"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.55, delay: 0.65, ease: BASE_EASE }}
-                />
-                <motion.path
-                  d="M14 12.5H50"
-                  stroke="#60A5FA"
-                  strokeWidth="2.4"
-                  strokeLinecap="square"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.65, delay: 0.45, ease: BASE_EASE }}
-                />
-              </svg>
+                ariaLabel="شعار شركة المناهري للمقاولات العمومية"
+              />
             </motion.div>
 
             <div className="flex flex-col items-center gap-3">

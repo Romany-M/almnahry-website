@@ -107,11 +107,12 @@ export const NotFoundView: React.FC<NotFoundViewProps> = ({ onReturnHome }) => {
     <div className="min-h-screen bg-[#101C2C] text-white flex items-center justify-center p-6">
       <div className="max-w-lg w-full rounded-3xl p-8 bg-[#1E3A5F]/42 border border-white/12 flex flex-col items-start gap-6 shadow-2xl">
         <div className="flex items-center gap-3">
-          <BrandLogoMark
-            className="w-8 h-8 text-white"
-            accentColor="#2878D0"
-            goldColor="#E5A52B"
-          />
+          <span className="w-10 h-10 rounded-xl bg-white/95 p-1.5 inline-flex items-center justify-center shrink-0">
+            <BrandLogoMark
+              className="w-full h-full"
+              ariaLabel="شعار شركة المناهري للمقاولات العمومية"
+            />
+          </span>
           <span className="font-[Cairo] text-base font-bold text-white">
             المناهري للمقاولات العمومية
           </span>

@@ -15,11 +15,9 @@ export const TaglineRevealSection: React.FC = () => {
       <div className="relative z-10 max-w-[1360px] mx-auto px-5 sm:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           <RevealBlock className="lg:col-span-4 flex flex-col gap-5">
-            <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-[#1E3A5F]/65 border border-white/15 shrink-0">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-white/95 border border-white/25 p-2 shadow-[0_10px_28px_-10px_rgba(0,0,0,0.45)] shrink-0">
               <BrandLogoMark
-                className="w-8 h-8 text-white"
-                accentColor="#2878D0"
-                goldColor="#E5A52B"
+                className="w-full h-full"
                 ariaLabel="شعار شركة المناهري للمقاولات العمومية"
               />
             </div>

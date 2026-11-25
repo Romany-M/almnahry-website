@@ -96,11 +96,12 @@ export const ProjectCaseStudy: React.FC<ProjectCaseStudyProps> = ({
           </button>
 
           <div className="hidden md:flex items-center gap-3 min-w-0">
-            <BrandLogoMark
-              className="w-6 h-6 shrink-0"
-              accentColor="#2878D0"
-              goldColor="#E5A52B"
-            />
+            <span className="w-8 h-8 rounded-lg bg-white/95 p-1 inline-flex items-center justify-center shrink-0">
+              <BrandLogoMark
+                className="w-full h-full"
+                ariaLabel="شعار شركة المناهري للمقاولات العمومية"
+              />
+            </span>
             <span className="text-sm font-medium text-[#B8C5D1] truncate">{project.title}</span>
             <span className="font-mono text-xs text-[#E5A52B] tabular-nums shrink-0">
               {String(currentIdx + 1).padStart(2, '0')} / {String(ALL_PROJECTS.length).padStart(2, '0')}
